@@ -4,12 +4,15 @@ import java.util.Date;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 /**
@@ -55,7 +58,7 @@ public class ClockWallpaperService extends WallpaperService {
 					SettingsActivity.DISPLAY_HAND_SEC_KEY, true);
 			paint = new Paint();
 			paint.setAntiAlias(true);
-			paint.setStyle(Paint.Style.STROKE);
+			paint.setStyle(Paint.Style.FILL_AND_STROKE);
 			paint.setStrokeWidth(5);
 			bgColor = Color.parseColor("#3F51B5");
 			clock = new AnalogClock(getApplicationContext());
@@ -107,10 +110,15 @@ public class ClockWallpaperService extends WallpaperService {
 				handler.postDelayed(drawRunner, 200);
 			}
 		}
+		int i=0;
 
 		private void draw(Canvas canvas) {
-			canvas.drawColor(bgColor);
-			clock.config(width / 2, height / 2, (int) (width * 0.8f),
+			canvas.drawColor(Color.argb(100,230,12,153));
+//			Bitmap bitmap= Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
+//					R.drawable.lighthouse), width,height, false);
+//			canvas.drawBitmap(bitmap,0,0,null);
+
+			clock.config(width / 2, height / 2, (int) (width * 0.7f),
 					new Date(), paint, colors, displayHandSec);
 			clock.draw(canvas);
 		}
