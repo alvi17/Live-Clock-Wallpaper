@@ -6,4 +6,42 @@
         android:title="@string/display_hand_sec"
         android:defaultValue="true" />
 
+        <CheckBoxPreference
+            android:key="center_width"
+            android:title="Center"
+            android:defaultValue="true"/>
+
+    <CheckBoxPreference
+        android:key="topleft"
+        android:title="Top-Left"
+        android:defaultValue="false"/>
+
+    <CheckBoxPreference
+        android:key="topright"
+        android:title="Top-right"
+        android:defaultValue="false"/>
+    <CheckBoxPreference
+        android:key="bottmleft"
+        android:title="Bottom-Left"
+        android:defaultValue="false"/>
+    <CheckBoxPreference
+        android:key="bottomright"
+        android:title="Bottom-right"
+        android:defaultValue="false"/>
+    <CheckBoxPreference
+        android:key="clockwidth50"
+        android:title="Clock size: 50% width"
+        android:defaultValue="true"/>
+    <CheckBoxPreference
+        android:key="clockwidth40"
+        android:title="Clock size: 40% width"
+        android:defaultValue="flase"/>
+
+    <CheckBoxPreference
+        android:key="clockwidth65"
+        android:title="Clock size: 65% width"
+        android:defaultValue="false"/>
+
+
+
 </PreferenceScreen>

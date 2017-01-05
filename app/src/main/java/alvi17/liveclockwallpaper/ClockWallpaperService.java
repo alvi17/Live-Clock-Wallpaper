@@ -113,12 +113,12 @@ public class ClockWallpaperService extends WallpaperService {
 		int i=0;
 
 		private void draw(Canvas canvas) {
-			canvas.drawColor(Color.argb(100,230,12,153));
-//			Bitmap bitmap= Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-//					R.drawable.lighthouse), width,height, false);
-//			canvas.drawBitmap(bitmap,0,0,null);
+//			canvas.drawColor(Color.argb(100,230,12,153));
+			Bitmap bitmap= Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
+					R.drawable.wall2), width,height, false);
+			canvas.drawBitmap(bitmap,0,0,null);
 
-			clock.config(width / 2, height / 2, (int) (width * 0.7f),
+			clock.config(width-width / 4, width/ 4+40, (int) (width * 0.5f),
 					new Date(), paint, colors, displayHandSec);
 			clock.draw(canvas);
 		}

@@ -29,7 +29,7 @@ public class AnalogClock extends View {
 	private Calendar cal;
 	private Paint paint;
 	private Bitmap clockDial = BitmapFactory.decodeResource(getResources(),
-			R.drawable.clock2);
+			R.drawable.clock5);
 	private int sizeScaled = -1;
 	private Bitmap clockDialScaled;
 	/** Hands colors. */
