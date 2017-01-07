@@ -7,7 +7,7 @@
         android:defaultValue="true" />
 
         <CheckBoxPreference
-            android:key="center_width"
+            android:key="center"
             android:title="Center"
             android:defaultValue="true"/>
 
@@ -21,7 +21,7 @@
         android:title="Top-right"
         android:defaultValue="false"/>
     <CheckBoxPreference
-        android:key="bottmleft"
+        android:key="bottomleft"
         android:title="Bottom-Left"
         android:defaultValue="false"/>
     <CheckBoxPreference
@@ -41,6 +41,8 @@
         android:key="clockwidth65"
         android:title="Clock size: 65% width"
         android:defaultValue="false"/>
+
+
 
 
 

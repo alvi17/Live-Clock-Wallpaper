@@ -28,8 +28,7 @@ public class AnalogClock extends View {
 	private int radius;
 	private Calendar cal;
 	private Paint paint;
-	private Bitmap clockDial = BitmapFactory.decodeResource(getResources(),
-			R.drawable.clock5);
+	private Bitmap clockDial ;
 	private int sizeScaled = -1;
 	private Bitmap clockDialScaled;
 	/** Hands colors. */
@@ -39,6 +38,7 @@ public class AnalogClock extends View {
 	public AnalogClock(Context context) {
 		super(context);
 		cal = Calendar.getInstance();
+
 	}
 	
 	public void config(float x, float y, int size, Date date, Paint paint, int[] colors, boolean displayHandSec) {
@@ -49,7 +49,46 @@ public class AnalogClock extends View {
 		this.displayHandSec = displayHandSec;
 		
 		cal.setTime(date);
-		
+		if(Globals.seleted_image==1) {
+			clockDial = BitmapFactory.decodeResource(getResources(),
+					R.drawable.clock);
+		}
+		else if(Globals.seleted_image==2)
+		{
+			clockDial = BitmapFactory.decodeResource(getResources(),
+					R.drawable.clock2);
+		}
+		else if(Globals.seleted_image==3)
+		{
+			clockDial = BitmapFactory.decodeResource(getResources(),
+					R.drawable.clock3);
+		}
+		else if(Globals.seleted_image==4)
+		{
+			clockDial = BitmapFactory.decodeResource(getResources(),
+					R.drawable.clock4);
+		}
+		else if(Globals.seleted_image==5)
+		{
+			clockDial = BitmapFactory.decodeResource(getResources(),
+					R.drawable.clock5);
+		}
+		else if(Globals.seleted_image==6)
+		{
+			clockDial = BitmapFactory.decodeResource(getResources(),
+					R.drawable.widgetdial);
+		}
+		else if(Globals.seleted_image==7)
+		{
+			clockDial = BitmapFactory.decodeResource(getResources(),
+				R.drawable.clock6);
+
+		}
+		else if(Globals.seleted_image==8)
+		{
+			clockDial = BitmapFactory.decodeResource(getResources(),
+					R.drawable.clock7);
+		}
 		// scale bitmap if needed
 		if (size != sizeScaled) {
 			clockDialScaled = Bitmap.createScaledBitmap(clockDial, size, size, false);
@@ -74,7 +113,7 @@ public class AnalogClock extends View {
 			//draw hands
 			paint.setColor(colors[0]);
 			paint.setStrokeCap(Paint.Cap.ROUND);
-			paint.setStrokeWidth((float) 8);
+			paint.setStrokeWidth((float) 6);
 			canvas.drawLine(x, y, (float) (x + (radius * 0.5f) * Math.cos(Math.toRadians((hour / 12.0f * 360.0f) - 90f))),
 					(float) (y + (radius * 0.5f) * Math.sin(Math.toRadians((hour / 12.0f * 360.0f) - 90f))), paint);
 			RectF oval_hour = new RectF(x-12, y-12, x+12, y+12);
@@ -83,7 +122,7 @@ public class AnalogClock extends View {
 
 			paint.setColor(colors[1]);
 			paint.setStrokeCap(Paint.Cap.ROUND);
-			paint.setStrokeWidth((float) 6.5);
+			paint.setStrokeWidth((float) 5);
 			canvas.drawLine(x, y, (float) (x + (radius * 0.6f) * Math.cos(Math.toRadians((min / 60.0f * 360.0f) - 90f))),
 					(float) (y + (radius * 0.6f) * Math.sin(Math.toRadians((min / 60.0f * 360.0f) - 90f))), paint);
 			RectF oval_min = new RectF(x-10, y-10, x+10, y+10);
@@ -93,7 +132,7 @@ public class AnalogClock extends View {
 			if (displayHandSec) {
 				paint.setColor(colors[2]);
 				paint.setStrokeCap(Paint.Cap.ROUND);
-				paint.setStrokeWidth((float) 5);
+				paint.setStrokeWidth((float) 3.8);
 				canvas.drawLine((float)(x-(radius * 0.2f) * Math.cos(Math.toRadians((sec / 60.0f * 360.0f) - 90f))), (float) (y - (radius * 0.2f) * Math.sin(Math.toRadians((sec / 60.0f * 360.0f) - 90f))), (float) (x + (radius * 0.7f) * Math.cos(Math.toRadians((sec / 60.0f * 360.0f) - 90f))),
 					(float) (y + (radius * 0.7f) * Math.sin(Math.toRadians((sec / 60.0f * 360.0f) - 90f))), paint);
 				paint.setStyle(Paint.Style.FILL);

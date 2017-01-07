@@ -1,6 +1,7 @@
 package alvi17.liveclockwallpaper;
 
 import java.util.Date;
+import java.util.Random;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -41,7 +42,7 @@ public class ClockWallpaperService extends WallpaperService {
 
 		private Paint paint;
 		/** hands colors for hour, min, sec */
-		private int[] colors = { 0xFFFF0000, 0xFF0000FF, 0xFFA2BC13 };
+		private int[] colors = { 0xFF000000, 0xFF000000, 0xFFFF0000 };
 		private int bgColor;
 		private int width;
 		private int height;
@@ -49,17 +50,35 @@ public class ClockWallpaperService extends WallpaperService {
 		private boolean displayHandSec;
 		private AnalogClock clock;
 		private SharedPreferences prefs;
+		boolean displayCenter,displaytopleft,displaytopright,displaybottomleft,displaybottomright,width40,wifth50,width65;
+		Integer[] backs={R.drawable.wall1,R.drawable.wall2,R.drawable.wall3,R.drawable.wall4,R.drawable.wall5,R.drawable.wall6};
+
+		int back=0;
+
+		float size_factor;
 
 		public ClockWallpaperEngine() {
+
 			prefs = PreferenceManager
 					.getDefaultSharedPreferences(ClockWallpaperService.this);
 			prefs.registerOnSharedPreferenceChangeListener(this);
-			displayHandSec = prefs.getBoolean(
-					SettingsActivity.DISPLAY_HAND_SEC_KEY, true);
+			displayHandSec = prefs.getBoolean(SettingsActivity.DISPLAY_HAND_SEC_KEY, true);
+			displayCenter=prefs.getBoolean("center",true);
+			displaybottomright=prefs.getBoolean("bottomright",false);
+			displaybottomleft=prefs.getBoolean("bottomleft",false);
+			displaytopleft=prefs.getBoolean("topleft",false);
+			displaytopright=prefs.getBoolean("topright",false);
+			width40=prefs.getBoolean("clockwidth40",false);
+			wifth50=prefs.getBoolean("clockwidth50",true);
+			width65=prefs.getBoolean("clockwidth65",false);
+
+			size_factor=(float)0.5;
+			back= new Random().nextInt(backs.length);
+
 			paint = new Paint();
 			paint.setAntiAlias(true);
 			paint.setStyle(Paint.Style.FILL_AND_STROKE);
-			paint.setStrokeWidth(5);
+
 			bgColor = Color.parseColor("#3F51B5");
 			clock = new AnalogClock(getApplicationContext());
 			handler.post(drawRunner);
@@ -114,12 +133,64 @@ public class ClockWallpaperService extends WallpaperService {
 
 		private void draw(Canvas canvas) {
 //			canvas.drawColor(Color.argb(100,230,12,153));
-			Bitmap bitmap= Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
-					R.drawable.wall2), width,height, false);
-			canvas.drawBitmap(bitmap,0,0,null);
 
-			clock.config(width-width / 4, width/ 4+40, (int) (width * 0.5f),
-					new Date(), paint, colors, displayHandSec);
+			Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),
+						backs[back]), width, height, false);
+			canvas.drawBitmap(bitmap, 0, 0, null);
+
+			if(wifth50)
+			{
+				size_factor=(float) 0.5;
+				paint.setStrokeWidth(4);
+			}
+			else if(width40)
+			{
+				size_factor=(float).40;
+				paint.setStrokeWidth(3);
+			}
+			else if(width65)
+			{
+				size_factor=(float).65;
+				paint.setStrokeWidth(5);
+			}
+			else
+			{
+				size_factor=(float) 0.5;
+				paint.setStrokeWidth(4);
+			}
+
+
+			if(displayCenter)
+			{
+				clock.config(width/2,height/2, (int) (width * size_factor),
+						new Date(), paint, colors, displayHandSec);
+			}
+			else if(displaytopright) {
+				clock.config(width - width *size_factor/2, width *size_factor/2 + 40, (int) (width * size_factor),
+						new Date(), paint, colors, displayHandSec);
+			}
+			else if (displaytopleft)
+			{
+				clock.config(width *size_factor/2, width *size_factor/2 + 40, (int) (width * size_factor),
+						new Date(), paint, colors, displayHandSec);
+			}
+			else if(displaybottomright)
+			{
+				clock.config(width-width *size_factor/2, height- width *size_factor/2 - 30, (int) (width * size_factor),
+						new Date(), paint, colors, displayHandSec);
+
+			}
+			else if(displaybottomleft)
+			{
+				clock.config(width *size_factor/2, height- width *size_factor/2 - 30, (int) (width * size_factor),
+						new Date(), paint, colors, displayHandSec);
+			}
+			else
+			{
+				clock.config(width*size_factor/2,height*size_factor/2, (int) (width * size_factor),
+						new Date(), paint, colors, displayHandSec);
+			}
+
 			clock.draw(canvas);
 		}
 
@@ -130,6 +201,42 @@ public class ClockWallpaperService extends WallpaperService {
 				displayHandSec = sharedPreferences.getBoolean(
 						SettingsActivity.DISPLAY_HAND_SEC_KEY, true);
 			}
+
+			if(key.equals("center"))
+			{
+				displayCenter=sharedPreferences.getBoolean("center",true);
+			}
+			else if(key.equals("topleft"))
+			{
+				displaytopleft=sharedPreferences.getBoolean("topleft",false);
+
+			}
+			else if(key.equals("topright"))
+			{
+				displaytopright=sharedPreferences.getBoolean("topright",false);
+			}
+			else if(key.equals("bottomleft"))
+			{
+				displaybottomleft=sharedPreferences.getBoolean("bottomleft",false);
+			}
+			else if(key.equals("bottomright"))
+			{
+				displaybottomright=sharedPreferences.getBoolean("bottomright",false);
+			}
+			else if(key.equals("clockwidth40"))
+			{
+				width40=sharedPreferences.getBoolean("clockwidth40",false);
+			}
+			else if(key.equals("clockwidth50"))
+			{
+				wifth50=sharedPreferences.getBoolean("clockwidth50",true);
+			}
+			else if(key.equals("clockwidth65"))
+			{
+				width65=sharedPreferences.getBoolean("clockwidth65",true);
+			}
+
+
 		}
 
 	}
