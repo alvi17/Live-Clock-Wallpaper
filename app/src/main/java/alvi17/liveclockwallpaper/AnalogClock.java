@@ -143,7 +143,9 @@ public class AnalogClock extends View {
 
 			//paint.setColor(Color.BLACK);
 
+			canvas.clipRect(x-radius,y-radius,x+radius,+radius);
 
+			canvas.restore();
 
 //			paint.setColor(Color.BLACK);
 //			paint.setStyle(Paint.Style.FILL);
